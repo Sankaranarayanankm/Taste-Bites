@@ -25,7 +25,7 @@
   border-radius: 4px;
 }
 
-.login > button {
+.login__form > button {
   padding: 10px;
   border: none;
   background-color: #28a745;
@@ -35,7 +35,7 @@
   margin-bottom: 20px;
 }
 
-.login > button:hover {
+.login__form > button:hover {
   background-color: #218838;
 }
 
@@ -47,4 +47,13 @@
 .login__a:hover {
   text-decoration: underline;
   color: blue;
+}
+
+.login__forgetpassword {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
 }

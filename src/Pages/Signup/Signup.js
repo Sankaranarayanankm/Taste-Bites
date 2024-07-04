@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signup } from "../../store/actions/auth-actions";
 
 const Signup = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -17,9 +20,11 @@ const Signup = () => {
       };
     });
   };
+
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(state);
+    // console.log(state);
+    dispatch(signup(state.email, state.password));
   };
   return (
     <div className="signup">
