@@ -1,9 +1,30 @@
-.userhome{
+.userhome {
+  display: flex;
+}
+
+/* .userhome__sidebar {
   display: flex;
   justify-content: center;
   flex-direction: column;
+} */
+
+.userhome__sidebar > h3 {
+  margin: 3px;
 }
 
-.userhome>h3{
-  margin: 3px;
+.userhome__sidebarItems {
+}
+
+.userhome__sidebarItems {
+  margin-right: 35px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid whitesmoke;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  cursor: pointer;
+}
+.userhome__sidebarItems:hover {
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
