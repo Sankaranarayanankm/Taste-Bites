@@ -1,0 +1,47 @@
+.productDetails {
+  width: 100%;
+  /* max-width: 800px; */
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.productDetails__header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.productDetails__header img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.productDetails__header h3 {
+  margin-top: 10px;
+  font-size: 24px;
+}
+
+.productDetails__header p {
+  font-size: 18px;
+  color: #666666;
+}
+
+.productDetails__ingredients,
+.productDetails__preparation {
+  margin-top: 20px;
+}
+
+.productDetails__ingredients h4,
+.productDetails__preparation h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.productDetails__ingredients p,
+.productDetails__preparation p {
+  font-size: 16px;
+  line-height: 1.6;
+}

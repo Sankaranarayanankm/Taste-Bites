@@ -2,7 +2,7 @@ import React from "react";
 import "./UserHome.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Products from "../Products/Products";
-import { IconButton } from "@mui/material";
+import { Route, Redirect } from "react-router-dom";
 import {
   Cake,
   Fastfood,
@@ -11,6 +11,7 @@ import {
   Restaurant,
   Spa,
 } from "@mui/icons-material";
+import ProductDetails from "../ProductDetails/ProductDetails";
 
 const UserHome = () => {
   return (
@@ -48,7 +49,15 @@ const UserHome = () => {
       </div>
       <div className="userhome__products">
         {/* add route here to render products and products details here  */}
-        <Products />
+        <Route exact path="/home">
+          <Products />
+        </Route>
+        <Route path="/home/:productId">
+          <ProductDetails />
+        </Route>
+        <Route path="*">
+          <Redirect to="/home" />
+        </Route>
       </div>
     </div>
   );
