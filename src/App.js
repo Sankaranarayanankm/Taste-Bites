@@ -10,16 +10,15 @@ import Header from "./Components/Header/Header";
 import UserProfile from "./Pages/UserProfile/UserProfile";
 import Home from "./Components/Home/Home";
 import { useSelector } from "react-redux";
+import Cart from "./Components/Cart/Cart";
 const App = () => {
   // custom hook to check is there any users in local storage
   useLoadLocalStorage();
   const isLogin = useSelector((state) => state.auth.isLogin);
-  console.log(isLogin);
+  const showCart = useSelector((state) => state.cart.showCart);
   return (
     <div className="app">
-      {/* move header from here  */}
-      {/* <Header /> */}
-
+      {showCart && <Cart />}
       <Switch>
         <Route exact path="/">
           {!isLogin && (
@@ -61,8 +60,6 @@ const App = () => {
           {!isLogin && <Redirect to="/signup" />}
         </Route>
       </Switch>
-      {/* move footer from here  */}
-      {/* <Footer /> */}
     </div>
   );
 };
