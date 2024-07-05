@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header > img {
+  width: fit-content;
+  height: 100px;
+}
+
+.header__input {
+  background-color: whitesmoke;
+  background-color: transparent;
+  display: flex;
+  padding: 10px;
+}
+
+.header__input > input {
+  border: none;
+  padding: 10px;
+}
+
+.header__input > input:focus {
+  outline: none;
+}
+.MuiSvgIcon-root {
+  cursor: pointer;
+}

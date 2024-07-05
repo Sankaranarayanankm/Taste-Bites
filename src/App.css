@@ -1,14 +1,14 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
+/* body {
+  height: 100vh;
+} */
 
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+.loginpages {
   display: flex;
   justify-content: center;
   align-items: center;

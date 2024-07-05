@@ -1,0 +1,39 @@
+.userprofile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.userprofile__section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid black;
+  width: fit-content;
+  padding: 50px;
+  height: 200px;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.userprofile__section > h1 {
+  margin-bottom: 6px;
+}
+.userprofile__section > form > input {
+  width: 350px;
+  padding: 5px;
+  margin-bottom: 6px;
+}
+
+
+.userprofile__section>form>button{
+  padding: 3px;
+  border:1px solid gray;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+.userprofile__section>form>button:hover{
+  color: white;
+  background-color: gray;
+}

@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import apiKey from "../../ApiKey";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/actions/auth-actions";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [state, setState] = useState({
     name: "",
     password: "",
@@ -24,6 +26,7 @@ const Login = () => {
     event.preventDefault();
     // console.log(state);
     dispatch(login(state.email, state.password));
+    history.push("/userprofile");
   };
   return (
     <div className="login">
