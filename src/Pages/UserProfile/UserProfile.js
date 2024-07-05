@@ -2,8 +2,10 @@ import React, { useRef, useState } from "react";
 import "./UserProfile.css";
 import apiKey from "../../ApiKey";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 const UserProfile = () => {
   const [enteredName, setEnteredName] = useState("");
+  const history = useHistory();
   const token = useSelector((state) => state.auth.idToken);
   // console.log(token);
   const photoRef = useRef();
@@ -12,7 +14,7 @@ const UserProfile = () => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(enteredName, photoRef.current.value);
+    // console.log(enteredName, photoRef.current.value);
     async function updatedName() {
       try {
         const response = await fetch(
@@ -35,6 +37,7 @@ const UserProfile = () => {
           throw new Error(errData.error.message);
         }
         console.log("name updated");
+        history.push("./home");
       } catch (error) {
         console.log(error);
       }

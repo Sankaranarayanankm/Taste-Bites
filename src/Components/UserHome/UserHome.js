@@ -2,62 +2,49 @@ import React from "react";
 import "./UserHome.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Products from "../Products/Products";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import {
   Cake,
   Fastfood,
   LocalDining,
   LocalPizza,
+  MenuBook,
   Restaurant,
   Spa,
 } from "@mui/icons-material";
 import ProductDetails from "../ProductDetails/ProductDetails";
+import CheckoutPage from "../../Pages/CheckoutPage/CheckoutPage";
 
 const UserHome = () => {
   return (
     <div className="userhome">
-      {/* <Sidebar title="Catogories" /> */}
       <div className="userhome__sidebar">
         <h3>Categories</h3>
-        <div className="userhome__sidebarItems">
-          <Cake />
-          <Sidebar title="Desserts" />
-        </div>
-        <div className="userhome__sidebarItems">
-          <LocalDining />
-          <Sidebar title="Breakfast" />
-        </div>
-        <div className="userhome__sidebarItems">
-          <Restaurant />
-          <Sidebar title="Dinner" />
-        </div>
-        <div className="userhome__sidebarItems">
-          <Spa />
-          <Sidebar title="Vegetarian" />
-        </div>
-        <div className="userhome__sidebarItems">
-          <Fastfood />
-          <Sidebar title="Seafood" />
-        </div>
-        <div className="userhome__sidebarItems">
-          <LocalPizza />
-          <Sidebar
-            title="Street Food
-"
-          />
-        </div>
+        <Sidebar Icon={MenuBook} category="All" />
+        <Sidebar Icon={Cake} category="Desserts" />
+        <Sidebar Icon={LocalDining} category="Breakfast" />
+        <Sidebar Icon={Restaurant} category="Dinner" />
+        <Sidebar Icon={Spa} category="Vegetarian" />
+        <Sidebar Icon={Fastfood} category="Seafood" />
+        <Sidebar Icon={LocalPizza} category="Street Food" />
       </div>
+
       <div className="userhome__products">
-        {/* add route here to render products and products details here  */}
-        <Route exact path="/home">
-          <Products />
-        </Route>
-        <Route path="/home/:productId">
-          <ProductDetails />
-        </Route>
-        <Route path="*">
-          <Redirect to="/home" />
-        </Route>
+        <Switch>
+          <Route exact path="/home/checkout">
+            <CheckoutPage />
+          </Route>
+          <Route exact path="/home">
+            <Products />
+          </Route>
+
+          <Route path="/home/:productId">
+            <ProductDetails />
+          </Route>
+          <Route path="*">
+            <Redirect to="/home" />
+          </Route>
+        </Switch>
       </div>
     </div>
   );

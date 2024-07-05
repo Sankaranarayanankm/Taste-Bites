@@ -1,13 +1,12 @@
-/*
 .sidebar {
+  display: flex;
+  align-items: center;
   padding: 10px;
-  border: 1px solid whitesmoke;
-  border-top-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
-.sidebar:hover {
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-}
 
-*/
+.sidebar__title {
+  margin-left: 10px;
+  font-size: 16px;
+}

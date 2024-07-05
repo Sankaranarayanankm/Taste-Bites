@@ -11,10 +11,12 @@ import UserProfile from "./Pages/UserProfile/UserProfile";
 import Home from "./Components/Home/Home";
 import { useSelector } from "react-redux";
 import Cart from "./Components/Cart/Cart";
+import CheckoutPage from "./Pages/CheckoutPage/CheckoutPage";
 const App = () => {
   // custom hook to check is there any users in local storage
   useLoadLocalStorage();
   const isLogin = useSelector((state) => state.auth.isLogin);
+  console.log(isLogin);
   const showCart = useSelector((state) => state.cart.showCart);
   return (
     <div className="app">
@@ -31,11 +33,12 @@ const App = () => {
         <Route path="/home">
           <Home />
         </Route>
-        {isLogin && (
-          <Route path="/userprofile">
-            <UserProfile />
-          </Route>
-        )}
+        
+
+        <Route path="/userprofile">
+          <UserProfile />
+        </Route>
+
         {!isLogin && (
           <Route path="/signup">
             <div className="loginpages">

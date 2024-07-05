@@ -6,11 +6,11 @@ import Modal from "../../Modal/Modal";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  // const cartItems = useSelector((state) => state.cart.items);
-  const cartItems = [];
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  // place order handler
   const placeOrderHandler = () => {
-    // Handle placing order
-    console.log("Order placed", cartItems);
+    console.log("Order placed");
   };
 
   return (
