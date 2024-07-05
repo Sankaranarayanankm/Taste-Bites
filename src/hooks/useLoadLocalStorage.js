@@ -8,7 +8,7 @@ function useLoadLocalStorage() {
     const data = localStorage.getItem("user");
     if (data) {
       const parsedData = JSON.parse(data);
-      console.log(parsedData);
+      // console.log(parsedData);
       dispatch(authActions.login(parsedData));
     }
   }, []);

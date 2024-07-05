@@ -1,0 +1,11 @@
+.sidebar {
+  /* background-color: red; */
+  padding: 10px;
+  border: 1px solid whitesmoke;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  cursor: pointer;
+}
+.sidebar:hover {
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+}

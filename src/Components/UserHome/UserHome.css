@@ -1,0 +1,9 @@
+.userhome{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.userhome>h3{
+  margin: 3px;
+}
