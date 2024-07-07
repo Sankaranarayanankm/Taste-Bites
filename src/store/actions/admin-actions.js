@@ -1,12 +1,11 @@
 import { adminAction } from "../slices/admin-slice";
 
-export function addCatogory(item) {
-  console.log(item);
+export function addCategory(item) {
   return async (dispatch) => {
     dispatch(adminAction.loadingState(true));
     async function sendRequest() {
       const response = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/catogories.json`,
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/categories.json`,
         {
           method: "POST",
           headers: {
@@ -34,14 +33,13 @@ export function addCatogory(item) {
     }
   };
 }
-// delete catogory functionality
 
-export function deleteCatogory(id) {
-  console.log(id);
+// delete catogory functionality
+export function deleteCategory(id) {
   return async (dispatch) => {
     async function sendRequest() {
       const response = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/catogories/${id}.json`,
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/categories/${id}.json`,
         {
           method: "DELETE",
           headers: {
@@ -64,12 +62,11 @@ export function deleteCatogory(id) {
 }
 
 // loading the items while page load
-
 export function getData() {
   return async (dispatch) => {
     async function sendRequest() {
       const response = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/catogories.json`
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/categories.json`
       );
       if (!response.ok) {
         const errData = await response.json();
@@ -80,11 +77,12 @@ export function getData() {
     }
     try {
       const data = await sendRequest();
-      console.log(data);
+      let loadedData = [];
       for (let val in data) {
-        // console.log(data[val]);
-        dispatch(adminAction.addCategory(data[val]));
+        loadedData.push({ id: val, ...data[val] });
+        // dispatch(adminAction.addCategory(data[val]));
       }
+      dispatch(adminAction.setCategory(loadedData));
     } catch (error) {
       console.log(error);
     }

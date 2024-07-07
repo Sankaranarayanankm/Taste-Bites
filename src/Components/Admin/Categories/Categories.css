@@ -1,26 +1,26 @@
-.catogories {
+.categories {
   display: flex;
   justify-content: space-between;
   padding: 20px;
   border-radius: 10px;
 }
 
-.catogories__available {
+.categories__available {
   padding: 10px;
   margin: 10px;
   flex: 1;
 }
 
-.catogories__available > h2 {
+.categories__available > h2 {
   text-align: center;
 }
 
-.catogories__available > ul {
+.categories__available > ul {
   list-style-type: none;
   padding: 0;
 }
 
-.catogories__available > ul > li {
+.categories__available > ul > li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,7 +31,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.catogories__add {
+.categories__add {
   padding: 10px;
   margin: 10px;
   flex: 1;
@@ -40,15 +40,15 @@
   align-items: center;
 }
 
-.catogories__add > h2 {
+.categories__add > h2 {
   text-align: center;
 }
-.catogories__add > label {
-  /* text-align: left !important; */
+
+.categories__add > label {
   align-self: flex-start;
 }
 
-.catogories__add > input {
+.categories__add > input {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -56,7 +56,7 @@
   border-radius: 5px;
 }
 
-.catogories__add > button {
+.categories__add > button {
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
@@ -66,6 +66,6 @@
   transition: background-color 0.3s;
 }
 
-.catogories__add > button:hover {
+.categories__add > button:hover {
   background-color: #0056b3;
 }

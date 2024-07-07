@@ -11,6 +11,8 @@ import Cart from "./Components/Cart/Cart";
 import { getCartData, getOrders } from "./store/actions/cart-actions";
 import AdminHome from "./Components/Admin/AdminHome/AdminHome";
 import UserHome from "./Components/UserHome/UserHome";
+import { getData } from "./store/actions/admin-actions";
+import { getRecipe } from "./store/actions/admin-recipe-actions";
 
 // need to remove Home.js after completing the project
 const App = () => {
@@ -18,6 +20,14 @@ const App = () => {
   useLoadLocalStorage();
   const email = useSelector((state) => state.auth.email);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRecipe());
+  }, []);
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+
   useEffect(() => {
     dispatch(getCartData(email));
     dispatch(getOrders(email));

@@ -8,8 +8,8 @@ import {
   ControlPoint,
   ShoppingCart,
 } from "@mui/icons-material";
-import Catogories from "../Categories/Catogories";
 import AddRecipe from "../AddRecipie/AddRecipe";
+import Categories from "../Categories/Categories";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import Orders from "../Orders/Orders";
@@ -35,7 +35,7 @@ const AdminHome = () => {
         <div className="adminHome__content">
           <Switch>
             <Route exact path="/admin">
-              <Catogories />
+              <Categories />
             </Route>
             <Route path="/admin/addrecipe">
               <AddRecipe />

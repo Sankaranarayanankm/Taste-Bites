@@ -1,45 +1,42 @@
 import React, { useEffect, useState } from "react";
-import "./Catogories.css";
+import "./Categories.css";
 import { Delete, Edit } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addCatogory,
-  deleteCatogory,
+  addCategory,
+  deleteCategory,
   getData,
 } from "../../../store/actions/admin-actions";
 
-const Catogories = () => {
+const Categories = () => {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.admin.catogories) || [];
+  const categories = useSelector((state) => state.admin.categories) || [];
+  // console.log(categories);
   const loading = useSelector((state) => state.admin.isLoading);
   const [category, setCategory] = useState("");
-
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
 
   const submitHandler = async (event) => {
     event.preventDefault();
     const obj = {
       category,
     };
-    dispatch(addCatogory(obj));
+    dispatch(addCategory(obj));
     setCategory("");
   };
 
   const editHandler = (id) => {
     const item = categories.find((itm) => itm.id === id);
     setCategory(item.category);
-    dispatch(deleteCatogory(id));
+    dispatch(deleteCategory(id));
   };
 
   const deleteHandler = (id) => {
-    dispatch(deleteCatogory(id));
+    dispatch(deleteCategory(id));
   };
 
   return (
-    <div className="catogories">
-      <div className="catogories__available">
+    <div className="categories">
+      <div className="categories__available">
         <h2>Currently available Categories</h2>
         <ul>
           {categories.map((item) => (
@@ -53,7 +50,7 @@ const Catogories = () => {
           ))}
         </ul>
       </div>
-      <form onSubmit={submitHandler} className="catogories__add">
+      <form onSubmit={submitHandler} className="categories__add">
         <h2>Add New Category</h2>
         <label htmlFor="category">Name:</label>
         <input
@@ -69,4 +66,4 @@ const Catogories = () => {
   );
 };
 
-export default Catogories;
+export default Categories;
