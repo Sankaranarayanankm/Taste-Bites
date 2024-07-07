@@ -124,7 +124,7 @@ export function getOrders(email) {
     try {
       const data = await ordersPlaced();
       for (let val in data) {
-        console.log(data[val]);
+        // console.log(data[val]);
         dispatch(cartActions.replacePlaceOrder(data[val]));
         // its better to add a new state in slice to set the ordered data while loading page
       }

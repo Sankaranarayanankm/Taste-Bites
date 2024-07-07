@@ -1,0 +1,21 @@
+.adminHome {
+  display: flex;
+  height: 100vh;
+}
+
+.adminHome__sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  padding: 20px;
+  color: #ecf0f1;
+}
+
+.adminHome__sidebar > * {
+  margin-bottom: 20px;
+}
+
+.adminHome__content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ecf0f1;
+}
