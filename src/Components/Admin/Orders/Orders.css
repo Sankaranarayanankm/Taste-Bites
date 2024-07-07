@@ -1,0 +1,23 @@
+.orders {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.orders table {
+  width: 100%;
+  /* flex: 1; */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.orders th, .orders td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.orders th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}

@@ -4,6 +4,7 @@ const sidebarSlice = createSlice({
   name: "sidebar",
   initialState: {
     selectedCategory: "All",
+    
   },
   reducers: {
     changeSelection(state, action) {

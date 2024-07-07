@@ -10,32 +10,46 @@ import {
 } from "@mui/icons-material";
 import Catogories from "../Categories/Catogories";
 import AddRecipe from "../AddRecipie/AddRecipe";
+import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
+import Orders from "../Orders/Orders";
+import { useHistory } from "react-router-dom";
 
 const AdminHome = () => {
+  const history = useHistory();
   return (
     <div className="adminHome">
-      <div className="adminHome__sidebar">
-        <Sidebar category="admin" Icon={AccountBox} />
-        <Sidebar category="Categories" Icon={Category} />
-        <Sidebar category="Add Recipie" Icon={ControlPoint} />
-        <Sidebar category="Orders" Icon={ShoppingCart} />
+      <Header />
+      <div className="adminHome__body">
+        <div className="adminHome__sidebar">
+          <Sidebar admin path="/" category="admin" Icon={AccountBox} />
+          <Sidebar admin path="/" category="categories" Icon={Category} />
+          <Sidebar
+            admin
+            path="/addrecipe"
+            category="Add Recipie"
+            Icon={ControlPoint}
+          />
+          <Sidebar admin path="/orders" category="orders" Icon={ShoppingCart} />
+        </div>
+        <div className="adminHome__content">
+          <Switch>
+            <Route exact path="/admin">
+              <Catogories />
+            </Route>
+            <Route path="/admin/addrecipe">
+              <AddRecipe />
+            </Route>
+            <Route path="/admin/orders">
+              <Orders />
+            </Route>
+            <Route path="*">
+              <Redirect to="/admin" />
+            </Route>
+          </Switch>
+        </div>
       </div>
-      <div className="adminHome__content">
-        <Switch>
-          {/* <Route path="/admin">
-            <Redirect to="/home/admin" />
-          </Route> */}
-          <Route exact path="/admin">
-            <Catogories />
-          </Route>
-          <Route path="/admin/addrecipe">
-            <AddRecipe />
-          </Route>
-          <Route path="*">
-            <Redirect to="/admin" />
-          </Route>
-        </Switch>
-      </div>
+      <Footer />
     </div>
   );
 };
