@@ -5,14 +5,14 @@ import Login from "./Pages/Login/Login";
 import { Route, Switch, Redirect } from "react-router-dom";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import useLoadLocalStorage from "./hooks/useLoadLocalStorage";
-import Footer from "./Components/Footer/Footer";
-import Header from "./Components/Header/Header";
 import UserProfile from "./Pages/UserProfile/UserProfile";
-import Home from "./Components/Home/Home";
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "./Components/Cart/Cart";
-import CheckoutPage from "./Pages/CheckoutPage/CheckoutPage";
 import { getCartData, getOrders } from "./store/actions/cart-actions";
+import AdminHome from "./Components/Admin/AdminHome/AdminHome";
+import UserHome from "./Components/UserHome/UserHome";
+
+// need to remove Home.js after completing the project 
 const App = () => {
   // custom hook to check is there any users in local storage
   useLoadLocalStorage();
@@ -22,8 +22,11 @@ const App = () => {
     dispatch(getCartData(email));
     dispatch(getOrders(email));
   }, [email]);
+
   const isLogin = useSelector((state) => state.auth.isLogin);
   const showCart = useSelector((state) => state.cart.showCart);
+  const admin = email == "test@gmail.com";
+  console.log(admin);
   return (
     <div className="app">
       {showCart && <Cart />}
@@ -34,16 +37,21 @@ const App = () => {
               <Redirect to="/signup" />
             </div>
           )}
-          {isLogin && <Home />}
+          {isLogin && admin && <Redirect to="/admin" />}
+          {isLogin && !admin && <Redirect to="home" />}
         </Route>
-        <Route path="/home">
-          <Home />
+        {isLogin && !admin && (
+          <Route path="/home">
+            <UserHome />
+          </Route>
+        )}
+        isLogin && admin &&{" "}
+        <Route path="/admin">
+          <AdminHome />
         </Route>
-
         <Route path="/userprofile">
           <UserProfile />
         </Route>
-
         {!isLogin && (
           <Route path="/signup">
             <div className="loginpages">
@@ -64,7 +72,8 @@ const App = () => {
           </Route>
         )}
         <Route path="*">
-          {isLogin && <Redirect to="/home" />}
+          {isLogin && !admin && <Redirect to="/home" />}
+          {isLogin && admin && <Redirect to="/admin" />}
           {!isLogin && <Redirect to="/signup" />}
         </Route>
       </Switch>

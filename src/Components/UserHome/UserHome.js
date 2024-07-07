@@ -14,6 +14,7 @@ import {
 } from "@mui/icons-material";
 import ProductDetails from "../ProductDetails/ProductDetails";
 import CheckoutPage from "../../Pages/CheckoutPage/CheckoutPage";
+import { useSelector } from "react-redux";
 
 const UserHome = () => {
   return (

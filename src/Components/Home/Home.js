@@ -14,8 +14,7 @@ const Home = () => {
   return (
     <div className="home">
       <Header />
-      {admin && <AdminHome />}
-      {!admin && <UserHome />}
+      {admin ? <AdminHome /> : <UserHome admin={admin} />}
       <Footer />
     </div>
   );
