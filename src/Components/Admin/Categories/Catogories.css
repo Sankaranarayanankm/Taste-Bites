@@ -2,9 +2,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  /* background-color: #f9f9f9; */
   border-radius: 10px;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .catogories__available {
@@ -23,6 +21,9 @@
 }
 
 .catogories__available > ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   background-color: #fff;
   margin: 5px 0;
@@ -41,6 +42,10 @@
 
 .catogories__add > h2 {
   text-align: center;
+}
+.catogories__add > label {
+  /* text-align: left !important; */
+  align-self: flex-start;
 }
 
 .catogories__add > input {

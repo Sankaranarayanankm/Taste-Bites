@@ -12,7 +12,7 @@ import { getCartData, getOrders } from "./store/actions/cart-actions";
 import AdminHome from "./Components/Admin/AdminHome/AdminHome";
 import UserHome from "./Components/UserHome/UserHome";
 
-// need to remove Home.js after completing the project 
+// need to remove Home.js after completing the project
 const App = () => {
   // custom hook to check is there any users in local storage
   useLoadLocalStorage();
@@ -26,7 +26,6 @@ const App = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
   const showCart = useSelector((state) => state.cart.showCart);
   const admin = email == "test@gmail.com";
-  console.log(admin);
   return (
     <div className="app">
       {showCart && <Cart />}
