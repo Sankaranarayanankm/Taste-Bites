@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Signup from "./Pages/Signup/Signup";
 import Login from "./Pages/Login/Login";
@@ -9,14 +9,20 @@ import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import UserProfile from "./Pages/UserProfile/UserProfile";
 import Home from "./Components/Home/Home";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cart from "./Components/Cart/Cart";
 import CheckoutPage from "./Pages/CheckoutPage/CheckoutPage";
+import { getCartData, getOrders } from "./store/actions/cart-actions";
 const App = () => {
   // custom hook to check is there any users in local storage
   useLoadLocalStorage();
+  const email = useSelector((state) => state.auth.email);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartData(email));
+    dispatch(getOrders(email));
+  }, [email]);
   const isLogin = useSelector((state) => state.auth.isLogin);
-  console.log(isLogin);
   const showCart = useSelector((state) => state.cart.showCart);
   return (
     <div className="app">
@@ -33,7 +39,6 @@ const App = () => {
         <Route path="/home">
           <Home />
         </Route>
-        
 
         <Route path="/userprofile">
           <UserProfile />

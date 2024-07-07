@@ -7,6 +7,7 @@ const UserProfile = () => {
   const [enteredName, setEnteredName] = useState("");
   const history = useHistory();
   const token = useSelector((state) => state.auth.idToken);
+
   // console.log(token);
   const photoRef = useRef();
   const nameHandler = (event) => {
@@ -58,7 +59,7 @@ const UserProfile = () => {
           <br />
           <input type="text" placeholder="Photo URL" ref={photoRef} />
           <br />
-          <button>Update</button>
+          <button type="submit">Update</button>
         </form>
       </div>
     </div>

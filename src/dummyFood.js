@@ -24,7 +24,7 @@ const foodItems = [
       8. Let cool for 1 minute, then run a knife around the edges to loosen and invert onto plates.
       9. Serve warm with ice cream or whipped cream.
     `,
-    price: "$6.00",
+    price: "6.00",
     image:
       "https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=400",
   },
@@ -50,7 +50,7 @@ const foodItems = [
       5. Add any optional toppings as desired.
       6. Serve immediately.
     `,
-    price: "$4.50",
+    price: "4.50",
     image: "https://example.com/avocado_toast.jpg",
   },
   {
@@ -75,7 +75,7 @@ const foodItems = [
       5. Remove from the grill and sprinkle with fresh dill.
       6. Serve with lemon wedges.
     `,
-    price: "$15.00",
+    price: "15.00",
     image:
       "https://www.thecookierookie.com/wp-content/uploads/2023/05/grilled-salmon-recipe-2-960x1200.jpg",
   },
@@ -106,7 +106,7 @@ const foodItems = [
       6. Cook for another 1-2 minutes until the sauce has thickened.
       7. Serve the stir-fry over cooked rice.
     `,
-    price: "$8.00",
+    price: "8.00",
     image: "https://example.com/veggie_stir_fry.jpg",
   },
   {
@@ -136,7 +136,7 @@ const foodItems = [
       8. Season with salt and pepper to taste.
       9. Serve over cooked pasta.
     `,
-    price: "$12.00",
+    price: "12.00",
     image: "https://example.com/shrimp_scampi.jpg",
   },
   {
@@ -163,7 +163,7 @@ const foodItems = [
       6. Fill each tortilla with the seasoned meat, shredded lettuce, diced tomatoes, shredded cheese, sour cream, and salsa.
       7. Serve immediately.
     `,
-    price: "$10.00",
+    price: "10.00",
     image: "https://example.com/tacos.jpg",
   },
 ];

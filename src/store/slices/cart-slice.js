@@ -28,6 +28,9 @@ const cartSlice = createSlice({
       state.orderedItems = [...state.orderedItems, action.payload];
       state.cartItems = [];
     },
+    replacePlaceOrder(state, action) {
+      state.orderedItems = action.payload;
+    },
   },
 });
 
