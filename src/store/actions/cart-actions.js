@@ -1,7 +1,5 @@
-// add to cart handler
-// add place order handler
-
 import { cartActions } from "../slices/cart-slice";
+import toast from "react-hot-toast";
 
 export function addItemToCart(email, obj) {
   const updatedEmail = email.replace(/[@.]/g, "");
@@ -26,10 +24,28 @@ export function addItemToCart(email, obj) {
     try {
       await addItem();
       dispatch(cartActions.addToCart(obj));
+      toast.success("Successfully added Item");
     } catch (error) {
       console.log(error || "Failed to add item to the cart");
+      toast.error(error.message || "Failed to add item");
     }
   };
+}
+
+// this delete cart is called inside place order
+async function deleteCart(updatedEmail) {
+  const res = await fetch(
+    `https://taste-bites-5fdad-default-rtdb.firebaseio.com/usercart${updatedEmail}.json`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!res.ok) {
+    throw new Error("Error in placing order");
+  }
 }
 
 export function placeOrder(email, obj) {
@@ -38,7 +54,7 @@ export function placeOrder(email, obj) {
   return async (dispatch) => {
     async function orderPlaced() {
       const response = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/userorder${updatedEmail}.json`,
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/orders.json`,
         {
           method: "POST",
           headers: {
@@ -52,34 +68,20 @@ export function placeOrder(email, obj) {
         throw new Error(errData.error.message);
       }
     }
-    async function deleteCart() {
-      const res = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/usercart${updatedEmail}.json`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!res.ok) {
-        throw new Error("Error in placing order");
-      }
-    }
+
     try {
       await orderPlaced();
-      await deleteCart();
+      await deleteCart(updatedEmail);
+      toast.success("Successfully Placed Order");
       dispatch(cartActions.placeOrder(obj));
     } catch (error) {
       console.log(error);
+      toast.error(error.message || "Failed to place your order");
     }
   };
 }
 
-//  add an function to fetch data from firebase when the page loads need both cart items and placed orders
-
 export function getCartData(email) {
-  // console.log(email)
   const updatedEmail = email.replace(/[@.]/g, "");
 
   return async (dispatch) => {
@@ -97,7 +99,6 @@ export function getCartData(email) {
     try {
       const data = await getData();
       for (let val in data) {
-        // console.log(data[val]);
         dispatch(cartActions.addToCart(data[val]));
       }
     } catch (error) {
@@ -106,13 +107,11 @@ export function getCartData(email) {
   };
 }
 
-export function getOrders(email) {
-  const updatedEmail = email.replace(/[@.]/g, "");
-
+export function getOrders() {
   return async (dispatch) => {
     async function ordersPlaced() {
       const response = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/userorder${updatedEmail}.json`
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/orders.json`
       );
       if (!response.ok) {
         const errData = await response.json();
@@ -123,13 +122,38 @@ export function getOrders(email) {
     }
     try {
       const data = await ordersPlaced();
-      for (let val in data) {
-        // console.log(data[val]);
-        dispatch(cartActions.replacePlaceOrder(data[val]));
-        // its better to add a new state in slice to set the ordered data while loading page
-      }
+      const out = Object.keys(data).map((key) => ({ ...data[key], id: key }));
+      dispatch(cartActions.replacePlaceOrder(out));
     } catch (error) {
       console.log(error);
+    }
+  };
+}
+
+export function updateOrders(id, updatedItem) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/orders/${id}.json`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedItem),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error.message);
+      }
+      console.log(updatedItem);
+      toast.success("Successfully updated ");
+      dispatch(cartActions.updateStatus(updatedItem));
+    } catch (error) {
+      toast.error(error.message || "Failed to update");
+      console.error("Error updating order:", error);
     }
   };
 }

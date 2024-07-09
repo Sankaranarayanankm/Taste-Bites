@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import { sidebarActions } from "../../store/slices/sidebar-slice";
 import { useHistory } from "react-router-dom";
 
-const Sidebar = ({ admin, category, Icon, path }) => {
-  // console.log(path, admin);
+const Sidebar = ({ admin, category, path }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const handleClick = () => {
@@ -15,10 +14,10 @@ const Sidebar = ({ admin, category, Icon, path }) => {
   };
   return (
     <div onClick={handleClick} className="sidebar">
-      <Icon />
-      <p>{category}</p>
+      <h5>{category}</h5>
     </div>
   );
 };
 
 export default Sidebar;
+   

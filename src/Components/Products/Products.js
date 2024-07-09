@@ -6,11 +6,14 @@ import { useSelector } from "react-redux";
 
 const Products = () => {
   const selected = useSelector((state) => state.sidebar.selectedCategory);
+  const recipes = useSelector((state) => state.admin.recipes);
+  // console.log(recipes[0]);
+
   let renderFoodItems;
   if (selected == "All") {
-    renderFoodItems = foodItems;
+    renderFoodItems = recipes;
   } else {
-    renderFoodItems = foodItems.filter((item) => item.category == selected);
+    renderFoodItems = recipes.filter((item) => item.categories == selected);
   }
 
   return (
@@ -21,7 +24,7 @@ const Products = () => {
         ))}
       </ul>
     </div>
-  );
+  );    
 };
 
 export default Products;

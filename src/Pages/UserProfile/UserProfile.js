@@ -3,6 +3,7 @@ import "./UserProfile.css";
 import apiKey from "../../ApiKey";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 const UserProfile = () => {
   const [enteredName, setEnteredName] = useState("");
   const history = useHistory();
@@ -37,32 +38,44 @@ const UserProfile = () => {
           const errData = await response.json();
           throw new Error(errData.error.message);
         }
-        console.log("name updated");
+        // console.log("name updated");
+        toast.success("Name Updated");
         history.push("./home");
       } catch (error) {
         console.log(error);
+        toast.error("Failed To update your name");
       }
     }
     updatedName();
   };
+  const continueHandler = () => {
+    history.push("./home");
+  };
+
   return (
-    <div className="userprofile">
-      <div className="userprofile__section">
-        <h1>Update Your Name here</h1>
-        <form onSubmit={submitHandler}>
-          <input
-            type="text"
-            placeholder="Update name"
-            value={enteredName}
-            onChange={nameHandler}
-          />
-          <br />
-          <input type="text" placeholder="Photo URL" ref={photoRef} />
-          <br />
-          <button type="submit">Update</button>
-        </form>
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <div className="userprofile">
+        <div className="userprofile__section">
+          <h1>Update Your Name here</h1>
+          <form onSubmit={submitHandler}>
+            <input
+              type="text"
+              placeholder="Update name"
+              value={enteredName}
+              onChange={nameHandler}
+            />
+            <br />
+            <input type="text" placeholder="Photo URL" ref={photoRef} />
+            <br />
+            <button type="submit">Update</button>
+            <button onClick={continueHandler} type="button">
+              Continue
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

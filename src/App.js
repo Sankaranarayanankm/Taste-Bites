@@ -13,54 +13,65 @@ import AdminHome from "./Components/Admin/AdminHome/AdminHome";
 import UserHome from "./Components/UserHome/UserHome";
 import { getData } from "./store/actions/admin-actions";
 import { getRecipe } from "./store/actions/admin-recipe-actions";
+import { authActions } from "./store/slices/auth-slice";
 
 // need to remove Home.js after completing the project
 const App = () => {
   // custom hook to check is there any users in local storage
   useLoadLocalStorage();
+
   const email = useSelector((state) => state.auth.email);
+  const admin = useSelector((state) => state.auth.admin);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRecipe());
-  }, []);
-  useEffect(() => {
-    dispatch(getData());
+    dispatch(getOrders());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getCartData(email));
-    dispatch(getOrders(email));
-  }, [email]);
+    dispatch(getData());
+    dispatch(getRecipe());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (email) dispatch(getCartData(email));
+  }, [dispatch, email]);
+  useEffect(() => {
+    // const admin = userEmail == "test@gmail.com";
+    dispatch(authActions.isAdmin(email));
+  }, [email, dispatch]);
 
   const isLogin = useSelector((state) => state.auth.isLogin);
   const showCart = useSelector((state) => state.cart.showCart);
-  const admin = email == "test@gmail.com";
+  console.log(admin);
   return (
     <div className="app">
       {showCart && <Cart />}
       <Switch>
         <Route exact path="/">
+          {isLogin && admin && <Redirect to="/admin" />}
+          {isLogin && !admin && <Redirect to="home" />}
           {!isLogin && (
             <div className="loginpages">
               <Redirect to="/signup" />
             </div>
           )}
-          {isLogin && admin && <Redirect to="/admin" />}
-          {isLogin && !admin && <Redirect to="home" />}
         </Route>
         {isLogin && !admin && (
           <Route path="/home">
             <UserHome />
           </Route>
         )}
-        isLogin && admin &&{" "}
-        <Route path="/admin">
-          <AdminHome />
-        </Route>
+        {isLogin && admin && (
+          <Route path="/admin">
+            <AdminHome />
+          </Route>
+        )}
+
         <Route path="/userprofile">
           <UserProfile />
         </Route>
+
         {!isLogin && (
           <Route path="/signup">
             <div className="loginpages">

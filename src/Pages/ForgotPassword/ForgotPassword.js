@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ForgotPassword.css";
 import { Link } from "react-router-dom";
 import apiKey from "../../ApiKey";
+import toast, { Toaster } from "react-hot-toast";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,6 @@ const ForgotPassword = () => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    // console.log(email);
     async function setNewPassword() {
       try {
         const response = await fetch(
@@ -30,22 +30,26 @@ const ForgotPassword = () => {
           const errData = await response.json();
           throw new Error(errData.error.message);
         }
-        console.log("succesfull");
+        toast.success("Successfull!! Check your email");
       } catch (error) {
         console.log(error);
+        toast.error("Sorry Request Failed!... Please check your connection");
       }
     }
     setNewPassword();
   };
   return (
-    <div className="forgetpassword">
-      <form onClick={submitHandler} className="forgetpassword__form">
-        <p>Enter your Email here</p>
-        <input type="email" value={email} onChange={emailHandler} />
-        <button>Reset Password</button>
-      </form>
-      <Link to="/login">Go to Login Page</Link>
-    </div>
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <div className="forgetpassword">
+        <form onClick={submitHandler} className="forgetpassword__form">
+          <p>Enter your Email here</p>
+          <input type="email" value={email} onChange={emailHandler} />
+          <button>Reset Password</button>
+        </form>
+        <Link to="/login">Go to Login Page</Link>
+      </div>
+    </>
   );
 };
 

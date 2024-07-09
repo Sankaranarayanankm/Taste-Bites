@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Header.css";
 import { Avatar, Button, IconButton } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { cartActions } from "../../store/slices/cart-slice";
 import { useDispatch } from "react-redux";
+import { authActions } from "../../store/slices/auth-slice";
+import { logout } from "../../store/actions/auth-actions";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const Header = () => {
           <Search />
         </div>
         <Button onClick={() => dispatch(cartActions.showCart())}>Cart</Button>
-        <IconButton>
+        <IconButton onClick={() => dispatch(logout())}>
           <Avatar />
         </IconButton>
       </div>

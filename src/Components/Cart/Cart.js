@@ -5,28 +5,34 @@ import { cartActions } from "../../store/slices/cart-slice";
 import Modal from "../../Modal/Modal";
 import { useHistory } from "react-router-dom";
 
-/* show ordered items in the cart with status
-add total amount for both cart items and ordred items
-*/
-
 const Cart = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const orderedItems = useSelector((state) => state.cart.orderedItems);
-  // console.log(orderedItems);
+  const totalOrderedItems = useSelector((state) => state.cart.orderedItems);
+  const email = useSelector((state) => state.auth.email);
+
+  const orderedItems = totalOrderedItems.filter((item) => item.email === email);
+
   const totalCartAmount = cartItems.reduce((cur, item) => {
     return cur + item.quantity * item.price;
   }, 0);
-  console.log(totalCartAmount);
+
   const totalOrderedAmount = orderedItems.reduce((cur, item) => {
     return cur + item.quantity * item.price;
   }, 0);
 
-  // place order handler
   const placeOrderHandler = () => {
-    console.log("Order placed");
     history.push("/home/checkout");
+    dispatch(cartActions.hideCart());
+  };
+
+  const addQuantityHandler = (id) => {
+    dispatch(cartActions.addToCart({ id }));
+  };
+
+  const removeQuantityHandler = (id) => {
+    dispatch(cartActions.removeFromCart({ id }));
   };
 
   return (
@@ -34,6 +40,9 @@ const Cart = () => {
       <div className="cart">
         <div className="cart__orderedItems">
           <h2>Ordered Items</h2>
+          <p className="cart__totalAmount">
+            Total Amount for Ordered Items: {totalOrderedAmount}
+          </p>
           <div className="cart__items">
             {orderedItems.length === 0 ? (
               <p>No ordered items</p>
@@ -51,9 +60,6 @@ const Cart = () => {
               ))
             )}
           </div>
-          <p className="cart__totalAmount">
-            Total Amount {totalOrderedAmount} :
-          </p>
         </div>
         <h2>Your Cart</h2>
         <div className="cart__items">
@@ -66,13 +72,23 @@ const Cart = () => {
                 <div className="cart__details">
                   <h4>{item.name}</h4>
                   <p>{item.price}</p>
-                  <p>Quantity: {item.quantity}</p>
+                  <div className="cart__quantity">
+                    <button onClick={() => removeQuantityHandler(item.id)}>
+                      -
+                    </button>
+                    <p>{item.quantity}</p>
+                    <button onClick={() => addQuantityHandler(item.id)}>
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
             ))
           )}
         </div>
-        <p className="cart__totalAmount">Total Amount {totalCartAmount} :</p>
+        <p className="cart__totalAmount">
+          Total Amount for Cart Items: {totalCartAmount}
+        </p>
         <div className="cart__actions">
           <button className="cart__orderbutton" onClick={placeOrderHandler}>
             Place Order

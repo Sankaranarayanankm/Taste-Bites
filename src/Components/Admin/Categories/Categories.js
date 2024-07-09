@@ -7,6 +7,7 @@ import {
   deleteCategory,
   getData,
 } from "../../../store/actions/admin-actions";
+import { Toaster } from "react-hot-toast";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -35,34 +36,40 @@ const Categories = () => {
   };
 
   return (
-    <div className="categories">
-      <div className="categories__available">
-        <h2>Currently available Categories</h2>
-        <ul>
-          {categories.map((item) => (
-            <li key={item.id}>
-              {item.category}
-              <div>
-                <Edit onClick={() => editHandler(item.id)} />
-                <Delete onClick={() => deleteHandler(item.id)} />
-              </div>
-            </li>
-          ))}
-        </ul>
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+
+      <div className="categories">
+        <div className="categories__available">
+          <h2>Currently available Categories</h2>
+          <ul>
+            {categories.map((item) => (
+              <li key={item.id}>
+                {item.category}
+                <div>
+                  <Edit onClick={() => editHandler(item.id)} />
+                  <Delete onClick={() => deleteHandler(item.id)} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <form onSubmit={submitHandler} className="categories__add">
+          <h2>Add New Category</h2>
+          <label htmlFor="category">Name:</label>
+          <input
+            type="text"
+            name="category"
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+            placeholder="Add new Category here"
+          />
+          <button type="submit">
+            {loading ? "Adding..." : "Add Category"}{" "}
+          </button>
+        </form>
       </div>
-      <form onSubmit={submitHandler} className="categories__add">
-        <h2>Add New Category</h2>
-        <label htmlFor="category">Name:</label>
-        <input
-          type="text"
-          name="category"
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-          placeholder="Add new Category here"
-        />
-        <button type="submit">{loading ? "Adding..." : "Add Category"} </button>
-      </form>
-    </div>
+    </>
   );
 };
 

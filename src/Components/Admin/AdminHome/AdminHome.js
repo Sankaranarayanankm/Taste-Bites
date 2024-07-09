@@ -24,7 +24,7 @@ const AdminHome = () => {
         <div className="adminHome__sidebar">
           <Sidebar admin path="/" category="admin" Icon={AccountBox} />
           <Sidebar admin path="/" category="categories" Icon={Category} />
-          <Sidebar
+             <Sidebar
             admin
             path="/addrecipe"
             category="Add Recipie"

@@ -1,4 +1,5 @@
 import { adminAction } from "../slices/admin-slice";
+import toast from "react-hot-toast";
 
 export function addRecipe(data) {
   return async (dispatch) => {
@@ -23,10 +24,12 @@ export function addRecipe(data) {
     }
     try {
       const res = await sendRequest();
+      toast.success("Successfully added recipe");
       const obj = { ...data, id: res.name };
       console.log(obj);
       dispatch(adminAction.addRecipe(obj));
     } catch (error) {
+      toast.error(error.message || "Failed to add recipe");
       console.log(error || "Failed to add Recipe");
     }
   };
@@ -37,7 +40,7 @@ export function getRecipe() {
   return async (dispatch) => {
     async function sendRequest() {
       const response = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/recipies.json`
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/recipes.json`
       );
       if (!response.ok) {
         const errData = await response.json();
@@ -67,7 +70,7 @@ export function deleteRecipe(id) {
   return async (dispatch) => {
     async function sendRequest() {
       const response = await fetch(
-        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/recipies/${id}.json`,
+        `https://taste-bites-5fdad-default-rtdb.firebaseio.com/recipes/${id}.json`,
         {
           method: "DELETE",
           headers: {

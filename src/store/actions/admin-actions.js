@@ -1,4 +1,5 @@
 import { adminAction } from "../slices/admin-slice";
+import toast from "react-hot-toast";
 
 export function addCategory(item) {
   return async (dispatch) => {
@@ -23,10 +24,12 @@ export function addCategory(item) {
     }
     try {
       const data = await sendRequest();
+      toast.success("Successfully added item to cart");
       const newCat = { ...item, id: data.name };
       console.log(newCat);
       dispatch(adminAction.addCategory(newCat));
     } catch (error) {
+      toast.error(error.message || "Failed to add item to cart");
       console.log(error || "Failed to add Catogory");
     } finally {
       dispatch(adminAction.loadingState(false));
@@ -54,7 +57,7 @@ export function deleteCategory(id) {
     }
     try {
       await sendRequest();
-      dispatch(adminAction.deleteCatogory(id));
+      dispatch(adminAction.deleteCategory(id));
     } catch (error) {
       console.log(error || "Failed to Delete Catogory");
     }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRecipe } from "../../../store/actions/admin-recipe-actions";
 import { adminAction } from "../../../store/slices/admin-slice";
 import RecipeList from "../RecipeList/RecipeList";
+import { Toaster } from "react-hot-toast";
 
 const AddRecipe = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,6 @@ const AddRecipe = () => {
   });
   const categories = useSelector((state) => state.admin.categories);
   const editedItem = useSelector((state) => state.admin.edittedRecipe);
-  // console.log(editedItem);
   useEffect(() => {
     if (editedItem) {
       setState({
@@ -51,6 +51,7 @@ const AddRecipe = () => {
   };
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       {showList && <RecipeList />}
       <div className="addrecipe">
         <button
