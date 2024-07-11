@@ -11,7 +11,8 @@
   margin-top: 20px;
 }
 
-.orders th, .orders td {
+.orders th,
+.orders td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -20,4 +21,29 @@
 .orders th {
   background-color: #f2f2f2;
   font-weight: bold;
+}
+
+.orders__select {
+  padding: 4px;
+  color: black;
+  background-color: transparent;
+  border-radius: 5px;
+}
+.orders__select:focus {
+  outline: none;
+}
+
+.orders__button {
+  border-radius: 4px;
+  border: 1px solid black;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.orders__button:hover {
+  color: white;
+  background-color: gray;
+  border: none;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 }

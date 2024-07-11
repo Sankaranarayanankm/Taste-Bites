@@ -14,6 +14,7 @@ import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import Orders from "../Orders/Orders";
 import { useHistory } from "react-router-dom";
+import UserProfile from "../../../Pages/UserProfile/UserProfile";
 
 const AdminHome = () => {
   const history = useHistory();
@@ -24,7 +25,7 @@ const AdminHome = () => {
         <div className="adminHome__sidebar">
           <Sidebar admin path="/" category="admin" Icon={AccountBox} />
           <Sidebar admin path="/" category="categories" Icon={Category} />
-             <Sidebar
+          <Sidebar
             admin
             path="/addrecipe"
             category="Add Recipie"
@@ -36,6 +37,9 @@ const AdminHome = () => {
           <Switch>
             <Route exact path="/admin">
               <Categories />
+            </Route>
+            <Route path="/admin/userprofile">
+              <UserProfile />
             </Route>
             <Route path="/admin/addrecipe">
               <AddRecipe />

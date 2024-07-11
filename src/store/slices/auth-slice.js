@@ -13,15 +13,13 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.idToken = action.payload.idToken;
       state.isLogin = !!action.payload.email;
+      state.admin = action.payload.email == "test@gmail.com";
     },
     logout(state) {
       state.email = "";
       state.isLogin = false;
       state.idToken = "";
-    },
-    isAdmin(state, action) {
-      const adminEmail = "test@gmail.com";
-      state.admin = adminEmail === action.payload;
+      state.admin = false;
     },
   },
 });

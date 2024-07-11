@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import apiKey from "../../ApiKey";
-import { useDispatch } from "react-redux";
-import { login } from "../../store/actions/auth-actions";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { authActions } from "../../store/slices/auth-slice";
 
 const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [state, setState] = useState({
-    name: "",
+    email: "",
     password: "",
   });
+  const email = useSelector((state) => state.auth.email);
   const changeHandler = (event) => {
     const { name, value } = event.target;
     setState((prev) => {
@@ -23,10 +24,40 @@ const Login = () => {
       };
     });
   };
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    dispatch(login(state.email, state.password));
-    history.push("/userprofile");
+    try {
+      const response = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: state.email,
+            password: state.password,
+            returnSecureToken: true,
+          }),
+        }
+      );
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error.message);
+      }
+      const data = await response.json();
+      const obj = {
+        email: data.email,
+        idToken: data.idToken,
+      };
+      localStorage.setItem("user", JSON.stringify(obj));
+      toast.success("Login Successful!");
+
+      dispatch(authActions.login(obj));
+      history.push("/userprofile");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

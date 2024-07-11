@@ -42,47 +42,49 @@ export function signup(email, password) {
   };
 }
 
-export function login(email, password) {
-  return async (dispatch) => {
-    async function sendLoginDetails() {
-      const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-            returnSecureToken: true,
-          }),
-        }
-      );
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error.message);
-      }
-      const resData = await response.json();
-      return resData;
-    }
-    try {
-      const data = await sendLoginDetails();
-      const obj = {
-        email: data.email,
-        idToken: data.idToken,
-      };
-      // console.log(obj);
-      localStorage.setItem("user", JSON.stringify(obj));
-      toast.success("Login Successful!");
+// export function login(email, password, history) {
+//   return async (dispatch) => {
+//     async function sendLoginDetails() {
+//       const response = await fetch(
+//         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`,
+//         {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({
+//             email,
+//             password,
+//             returnSecureToken: true,
+//           }),
+//         }
+//       );
+//       if (!response.ok) {
+//         const errData = await response.json();
+//         throw new Error(errData.error.message);
+//       }
+//       const resData = await response.json();
+//       return resData;
+//     }
+//     try {
+//       const data = await sendLoginDetails();
+//       const obj = {
+//         email: data.email,
+//         idToken: data.idToken,
+//       };
+//       // console.log(obj);
+//       localStorage.setItem("user", JSON.stringify(obj));
+//       toast.success("Login Successful!");
 
-      dispatch(authActions.login(data.email, data.idToken));
-    } catch (error) {
-      toast.error(error.message || "Failed to login");
-      console.log(error);
-    }
-  };
-}
+//       dispatch(authActions.login(data.email, data.idToken));
+//       dispatch(authActions.isAdmin(data.email));
+//       history.push("/userprofile");
+//     } catch (error) {
+//       toast.error(error.message || "Failed to login");
+//       console.log(error);
+//     }
+//   };
+// }
 
 export function logout() {
   return (dispatch) => {

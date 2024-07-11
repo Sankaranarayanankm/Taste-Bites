@@ -19,11 +19,14 @@ import { authActions } from "./store/slices/auth-slice";
 const App = () => {
   // custom hook to check is there any users in local storage
   useLoadLocalStorage();
-
-  const email = useSelector((state) => state.auth.email);
-  const admin = useSelector((state) => state.auth.admin);
   const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const showCart = useSelector((state) => state.cart.showCart);
+  const email = useSelector((state) => state.auth.email);
+  let admin = useSelector((state) => state.auth.admin);
 
+  const auth = useSelector((state) => state.auth);
+  // console.log(auth);
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
@@ -34,20 +37,17 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (email) dispatch(getCartData(email));
+    if (isLogin && email) dispatch(getCartData(email));
   }, [dispatch, email]);
-  useEffect(() => {
-    // const admin = userEmail == "test@gmail.com";
-    dispatch(authActions.isAdmin(email));
-  }, [email, dispatch]);
 
-  const isLogin = useSelector((state) => state.auth.isLogin);
-  const showCart = useSelector((state) => state.cart.showCart);
   console.log(admin);
   return (
     <div className="app">
       {showCart && <Cart />}
       <Switch>
+        {/* <Route exact path="/userprofile">
+          <UserProfile />
+        </Route> */}
         <Route exact path="/">
           {isLogin && admin && <Redirect to="/admin" />}
           {isLogin && !admin && <Redirect to="home" />}
@@ -67,10 +67,6 @@ const App = () => {
             <AdminHome />
           </Route>
         )}
-
-        <Route path="/userprofile">
-          <UserProfile />
-        </Route>
 
         {!isLogin && (
           <Route path="/signup">

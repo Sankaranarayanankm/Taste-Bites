@@ -9,14 +9,12 @@ const UserProfile = () => {
   const history = useHistory();
   const token = useSelector((state) => state.auth.idToken);
 
-  // console.log(token);
   const photoRef = useRef();
   const nameHandler = (event) => {
     setEnteredName(event.target.value);
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    // console.log(enteredName, photoRef.current.value);
     async function updatedName() {
       try {
         const response = await fetch(
@@ -70,7 +68,7 @@ const UserProfile = () => {
             <br />
             <button type="submit">Update</button>
             <button onClick={continueHandler} type="button">
-              Continue
+              Back
             </button>
           </form>
         </div>

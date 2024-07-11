@@ -9,6 +9,7 @@ import CheckoutPage from "../../Pages/CheckoutPage/CheckoutPage";
 import { useSelector } from "react-redux";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import UserProfile from "../../Pages/UserProfile/UserProfile";
 
 const UserHome = () => {
   const categories = useSelector((state) => state.admin.categories);
@@ -24,9 +25,12 @@ const UserHome = () => {
             <Sidebar key={item.id} category={item.category} />
           ))}
         </div>
-   
+
         <div className="userhome__products">
           <Switch>
+            <Route path="/home/userprofile">
+              <UserProfile />
+            </Route>
             <Route exact path="/home/checkout">
               <CheckoutPage />
             </Route>
