@@ -14,6 +14,7 @@ import UserHome from "./Components/UserHome/UserHome";
 import { getData } from "./store/actions/admin-actions";
 import { getRecipe } from "./store/actions/admin-recipe-actions";
 import { authActions } from "./store/slices/auth-slice";
+import Footer from "./Components/Footer/Footer";
 
 // need to remove Home.js after completing the project
 const App = () => {
@@ -42,58 +43,57 @@ const App = () => {
 
   console.log(admin);
   return (
-    <div className="app">
-      {showCart && <Cart />}
-      <Switch>
-        {/* <Route exact path="/userprofile">
-          <UserProfile />
-        </Route> */}
-        <Route exact path="/">
-          {isLogin && admin && <Redirect to="/admin" />}
-          {isLogin && !admin && <Redirect to="home" />}
-          {!isLogin && (
-            <div className="loginpages">
-              <Redirect to="/signup" />
-            </div>
+    <>
+      <div className="app">
+        {showCart && <Cart />}
+        <Switch>
+          <Route exact path="/">
+            {isLogin && admin && <Redirect to="/admin" />}
+            {isLogin && !admin && <Redirect to="home" />}
+            {!isLogin && (
+              <div className="loginpages">
+                <Redirect to="/signup" />
+              </div>
+            )}
+          </Route>
+          {isLogin && !admin && (
+            <Route path="/home">
+              <UserHome />
+            </Route>
           )}
-        </Route>
-        {isLogin && !admin && (
-          <Route path="/home">
-            <UserHome />
-          </Route>
-        )}
-        {isLogin && admin && (
-          <Route path="/admin">
-            <AdminHome />
-          </Route>
-        )}
+          {isLogin && admin && (
+            <Route path="/admin">
+              <AdminHome />
+            </Route>
+          )}
 
-        {!isLogin && (
-          <Route path="/signup">
-            <div className="loginpages">
-              <Signup />
-            </div>
+          {!isLogin && (
+            <Route path="/signup">
+              <div className="loginpages">
+                <Signup />
+              </div>
+            </Route>
+          )}
+          {!isLogin && (
+            <Route path="/login">
+              <div className="loginpages">
+                <Login />
+              </div>
+            </Route>
+          )}
+          {!isLogin && (
+            <Route path="/forgotpassword">
+              <ForgotPassword />
+            </Route>
+          )}
+          <Route path="*">
+            {isLogin && !admin && <Redirect to="/home" />}
+            {isLogin && admin && <Redirect to="/admin" />}
+            {!isLogin && <Redirect to="/signup" />}
           </Route>
-        )}
-        {!isLogin && (
-          <Route path="/login">
-            <div className="loginpages">
-              <Login />
-            </div>
-          </Route>
-        )}
-        {!isLogin && (
-          <Route path="/forgotpassword">
-            <ForgotPassword />
-          </Route>
-        )}
-        <Route path="*">
-          {isLogin && !admin && <Redirect to="/home" />}
-          {isLogin && admin && <Redirect to="/admin" />}
-          {!isLogin && <Redirect to="/signup" />}
-        </Route>
-      </Switch>
-    </div>
+        </Switch>
+      </div>
+    </>
   );
 };
 

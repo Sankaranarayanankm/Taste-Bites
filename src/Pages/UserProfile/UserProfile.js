@@ -47,7 +47,7 @@ const UserProfile = () => {
     updatedName();
   };
   const continueHandler = () => {
-    history.push("./home");
+    history.push("/home");
   };
 
   return (

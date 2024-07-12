@@ -13,7 +13,7 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.idToken = action.payload.idToken;
       state.isLogin = !!action.payload.email;
-      state.admin = action.payload.email == "test@gmail.com";
+      state.admin = action.payload.email == "admin@gmail.com";
     },
     logout(state) {
       state.email = "";
